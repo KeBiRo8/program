@@ -13,4 +13,12 @@ use App\Http\Controllers\Postcontroller;
 |
 */
 
-Route::get('/posts', [PostController::class, 'index']);
+//Route::get('/posts', [PostController::class, 'index']);
+/*Route::get('/', function() {
+    return view('posts.index');
+});*/
+//スラッシュというリクエストが来たらposts.index、つまりindex.blade.phpを返す
+//view('posts.index')はpostsディレクトリ下のindex
+//viewを返却するときはreturn内をview('bladeファイル内の.bladeの前の部分')と書く
+//bladeファイルがposts直下にないときはviews以降の相対パスを書く
+Route::get('/', [PostController::class, 'index']);
