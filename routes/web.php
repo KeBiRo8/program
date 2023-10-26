@@ -13,6 +13,8 @@ use App\Http\Controllers\Postcontroller;
 |
 */
 
+
+
 //Route::get('/posts', [PostController::class, 'index']);
 /*Route::get('/', function() {
     return view('posts.index');
@@ -22,3 +24,4 @@ use App\Http\Controllers\Postcontroller;
 //viewを返却するときはreturn内をview('bladeファイル内の.bladeの前の部分')と書く
 //bladeファイルがposts直下にないときはviews以降の相対パスを書く
 Route::get('/', [PostController::class, 'index']);
+
