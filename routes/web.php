@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/posts', [PostController::class, 'index']);
+//Route::get('/posts', [Postcontroller::class, 'index']);
 /*Route::get('/', function() {
     return view('posts.index');
 });*/
@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 //view('posts.index')はpostsディレクトリ下のindex
 //viewを返却するときはreturn内をview('bladeファイル内の.bladeの前の部分')と書く
 //bladeファイルがposts直下にないときはviews以降の相対パスを書く
-Route::get('/', [PostController::class, 'index']);
-Route::get('/posts/{post}', [PostController::class ,'show']);
-// '/posts/{対象データのID}'にGetリクエストが来たら、PostControllerのshowメソッドを実行する
+
+Route::get('/', [Postcontroller::class, 'index']);
+Route::get('/posts/{post}', [Postcontroller::class ,'show']);
+// '/posts/{対象データのID}'にGetリクエストが来たら、Postcontrollerのshowメソッドを実行する
+
