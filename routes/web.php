@@ -15,6 +15,7 @@ use App\Http\Controllers\Postcontroller;
 */
 
 //Route::get('/posts', [Postcontroller::class, 'index']);
+
 /*Route::get('/', function() {
     return view('posts.index');
 });*/
@@ -26,4 +27,3 @@ use App\Http\Controllers\Postcontroller;
 Route::get('/', [Postcontroller::class, 'index']);
 Route::get('/posts/{post}', [Postcontroller::class ,'show']);
 // '/posts/{対象データのID}'にGetリクエストが来たら、Postcontrollerのshowメソッドを実行する
-
