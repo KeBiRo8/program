@@ -23,4 +23,5 @@
             <!--linksは残りの結果のページのリンクをレンダーする。-->
         </div>
     </body>
+    <a href='/posts/create'>create</a>
 </html>
