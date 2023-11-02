@@ -30,6 +30,19 @@ class Postcontroller extends Controller
     {
     return view('posts.create');
     }
+    public function store(Request $request, Post $post)
+    //$をつけると$postという変数になる
+    /*{
+        dd($request->all());
+    }*/
+    {
+        $input = $request['post'];
+        //post[~]というもののみを取得し$inputに保存
+        $post->fill($input)->save();
+        //$postのプロパティを受け取ったデータで上書き
+        return redirect('post/'.$post->id);
+        //$post->idを引数に入れることで、作製した投稿の詳細ページへ画面を遷移させることができる
+    }
 
 
 }

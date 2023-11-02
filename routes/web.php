@@ -24,8 +24,10 @@ use App\Http\Controllers\Postcontroller;
 //viewを返却するときはreturn内をview('bladeファイル内の.bladeの前の部分')と書く
 //bladeファイルがposts直下にないときはviews以降の相対パスを書く
 
+//以下ではホームからあるボタン（URI）を指定したときにどこに遷移するかを示す
 Route::get('/', [Postcontroller::class, 'index']);
 Route::get('/posts/create',[Postcontroller::class, 'create']);
 //必ずRoute::get('/posts/{post}', 'PostController@show');の上に書くようにしてください。web.phpは上からルーティングを見ていき、当てはまるルーティングのものが呼び出されます。先にRoute::get('/posts/{post}', 'PostController@show');を書くと{post}のところにcreateという文字列が入ってしまい、showメソッドが呼び出されるという予期しない挙動になるので気をつけましょう。
 Route::get('/posts/{post}', [Postcontroller::class ,'show']);
 // '/posts/{対象データのID}'にGetリクエストが来たら、Postcontrollerのshowメソッドを実行する
+Route::post('/posts', [PostController::class, 'store']);
