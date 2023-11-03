@@ -15,6 +15,14 @@
                         <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
                     </h2>
                     <p class='body'>{{ $post->body }}</p>
+                    <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
+                        <!--id以降は$postのidをformのidの中に埋め込む、formタグではdeleteを指定できないのでmethodでpost-->
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" onclick="deletePost({{ $post->id }})">delete</button> 
+                    <!--デリートボタン実装、typeをsubmitにすると送信されてしまう、
+                    onclickは要素をクリックしたときにその後ろの関数を使用する-->
+                    </form>
                 </div>
             @endforeach
         </div>
@@ -24,4 +32,18 @@
         </div>
     </body>
     <a href='/posts/create'>create</a>
+    <script>
+    //JavaScript指定
+        function deletePost(id) {
+            'use strict'
+
+            if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                //confirm関数は引数に書いた文字列がポップアップで出てくる関数
+                document.getElementById(`form_${id}`).submit();
+                //getElementByIdでhtmlの要素を取得今回はform_id
+                //Java Scriptでは変数の埋め込みができない→delete_post内のidを引数に
+                //JSではバッククォーテーション``の中で変数を${}で囲むことで文字列中で変数を使える
+            }
+        }
+    </script>
 </html>

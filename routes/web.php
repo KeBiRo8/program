@@ -34,3 +34,4 @@ Route::post('/posts', [Postcontroller::class, 'store']);
 //{}の中身はルートパラメータと呼ぶ、編集したい投稿のidなど任意の値を格納できる
 Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
 Route::put('/posts/{post}', [PostController::class, 'update']);
+Route::delete('/posts/{post}', [PostController::class,'delete']);

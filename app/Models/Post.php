@@ -3,10 +3,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+    //削除扱いになり、以降検索に引っ掛からなくなる
     
     public function getPaginateByLimit(int $limit_count = 10)
     {
