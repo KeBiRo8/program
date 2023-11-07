@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"> <!--str_replaceは検索文字列と一致した文字列を置換する-->
+    <x-app-layout>
+    <x-slot name="header">
     <head>
         <meta charset="utf-8">
         <title>Blog</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
+    </x-slot>
     <body class="antialiased">
         <h1>Blog Name</h1>
         <div class='posts'><!--divはh1やh2をまとめる機能、div classはその名前-->
@@ -31,7 +34,9 @@
             {{ $posts->links() }}
             <!--linksは残りの結果のページのリンクをレンダーする。-->
         </div>
+        <a>ログインユーザー:{{ Auth::user()->name }}</a>
     </body>
+    </x-app-layout>
     <a href='/posts/create'>create</a>
     <script>
     //JavaScript指定

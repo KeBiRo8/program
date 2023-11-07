@@ -1,9 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <x-app-layout>
+    <x-slot name="header">
     <head>
         <meta charset="utf-8">
         <title>Blog</title>
     </head>
+    </x-slot>
     <body>
         <h1 class="title">編集画面</h1>
         <div class="content">
@@ -45,4 +48,5 @@ LaravelではCSRFトークンと呼ばれるものを発行し、そのトーク
         <!--herfの後に"戻る"を押した後に遷移するリンクを入れる-->
         </div>
     </body>
+    </x-app-layout>
 </html>
