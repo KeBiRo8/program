@@ -1,9 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <x-app-layout>
+    <x-slot name="header">
     <head>
         <meta charset="utf-8">
         <title>Blog</title>
     </head>
+    </x-slot>
     <body>
         <h1>Blog Name</h1>
         <form action="/posts" method="POST">
@@ -46,4 +49,5 @@ LaravelではCSRFトークンと呼ばれるものを発行し、そのトーク
         <div class="back">[<a href="/">back</a>]</div>
         </div>
     </body>
+    </x-app-layout>
 </html>

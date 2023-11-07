@@ -1,39 +1,44 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Postcontroller;
 use App\Http\Controllers\CategoryController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
-//Route::get('/posts', [Postcontroller::class, 'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-/*Route::get('/', function() {
-    return view('posts.index');
-});*/
-//スラッシュというリクエストが来たらposts.index、つまりindex.blade.phpを返す
-//view('posts.index')はpostsディレクトリ下のindex
-//viewを返却するときはreturn内をview('bladeファイル内の.bladeの前の部分')と書く
-//bladeファイルがposts直下にないときはviews以降の相対パスを書く
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-//以下ではホームからあるボタン（URI）を指定したときにどこに遷移するかを示す
-Route::get('/', [Postcontroller::class, 'index']);
-Route::get('/posts/create',[Postcontroller::class, 'create']);
-//必ずRoute::get('/posts/{post}', 'PostController@show');の上に書くようにしてください。web.phpは上からルーティングを見ていき、当てはまるルーティングのものが呼び出されます。先にRoute::get('/posts/{post}', 'PostController@show');を書くと{post}のところにcreateという文字列が入ってしまい、showメソッドが呼び出されるという予期しない挙動になるので気をつけましょう。
-Route::get('/posts/{post}', [Postcontroller::class ,'show']);
-// '/posts/{対象データのID}'にGetリクエストが来たら、Postcontrollerのshowメソッドを実行する
-Route::post('/posts', [Postcontroller::class, 'store']);
-//{}の中身はルートパラメータと呼ぶ、編集したい投稿のidなど任意の値を格納できる
-Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
-Route::put('/posts/{post}', [PostController::class, 'update']);
-Route::delete('/posts/{post}', [PostController::class,'delete']);
-Route::get('/categories/{category}', [CategoryController::class,'index']);
+Route::controller(PostController::class)->middleware(['auth'])->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::post('/posts', 'store')->name('store');
+    Route::get('/posts/create', 'create')->name('create');
+    Route::get('/posts/{post}', 'show')->name('show');
+    Route::put('/posts/{post}', 'update')->name('update');
+    Route::delete('/posts/{post}', 'delete')->name('delete');
+    Route::get('/posts/{post}/edit', 'edit')->name('edit');
+});
+
+Route::get('/categories/{category}', [CategoryController::class,'index'])->middleware("auth");
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+require __DIR__.'/auth.php';
