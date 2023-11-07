@@ -5,8 +5,10 @@
         <title>Blog</title>
     </head>
     <body>
-        <h1>Blog Name</h1>
-        <form action="/posts" method="POST">
+        <h1 class="title">編集画面</h1>
+        <div class="content">
+        <form action="/posts/{{$post->id}}" method="POST">
+            <!--$postは変数、->でその中の記事を特定するためのid値を指定
             <!--Formタグには、action属性とmethod属性を指定します。
 
 action属性
@@ -23,27 +25,24 @@ GET・POSTなど、HTTPリクエストのメソッドを指定します。
 CSRF（クロス・サイト・リクエスト・フォージェリ）というセキュリティ脅威からアプリケーションを守るために、
 LaravelではCSRFトークンと呼ばれるものを発行し、そのトークン情報をリクエスト時に一緒に送信することで、リクエストを検証できるようにしています。
 -->
-            <div class="category">
-                <h2>Category</h2>
-                <select name="post[category_id]">
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="title">
+            @method('PUT')
+            <!--PUTでリクエストをしたいがFormタグのmethod属性ではサポートされていない
+            →POSTを指定した上でFormタグの内側でmethod'PUT'とbladeディレクティブを指定する-->
+            <div class="content_title">
                 <h2>Title</h2>
-                <input type="text" name="post[title]" placeholder="タイトル" value="{{ old('post.title') }}"/>
-                <p class="title__error" style="color:red">{{ $errors->first('post.title') }}</p>
+                <input type="text" name="post[title]" placeholder="タイトル" value="{{ $post->title }}"/>
             </div>
             <div class="body">
                 <h2>Body</h2>
-                <textarea name="post[body]" placeholder="今日も1日お疲れさまでした。">{{ old('post.body') }}</textarea>
+                <textarea name="post[body]" placeholder="今日も1日お疲れさまでした。">{{ $post->body }}</textarea>
                 <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
             </div>
-            <input type="submit" value="store"/>
+            <input type="submit" value="update"/>
         </form>
-        <div class="back">[<a href="/">back</a>]</div>
+        <div class="back">
+            <a href="/posts/{{$post->id}}">back</a>
+        </div>
+        <!--herfの後に"戻る"を押した後に遷移するリンクを入れる-->
         </div>
     </body>
 </html>
